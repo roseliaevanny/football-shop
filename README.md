@@ -1,5 +1,7 @@
 Link: https://roselia-evanny-footballshop.pbp.cs.ui.ac.id/
 
+<details>
+<Summary><b>Tugas 2</b></Summary>
 Penjelasan mengenai implementasi checklist:
 Pertama, saya membuat direktori baru sebagai letak proyek ini. Kemudian, saya melakukan instalasi terhadap dependencies dan membuat proyek Django. Kemudian, saya membuat environment variables untuk menyimpan kredensial database dan pengaturan environment. Kemudian saya menambahkan beberapa konfigurasi di settings.py, seperti menambahkan local host sebagai host yang dapat mengakses web di ALLOWED_HOSTS. Kemudian saya mengubah konfigurasi database, yaitu pada proses production, database yang digunakan adalah PostgreSQL, sedangkan pada proses development, database yang digunakan adalah SQLite. Selanjutnya, saya melakukan migrasi database dan menjalankan servernya. Ini berarti proyek Django berhasil dibuat.
 
@@ -32,3 +34,9 @@ Ryabtsev, A. (2025, Januari 9). Top 14 Pros of Using Django for Python Web Devel
 
 Feedback untuk asisten dosen tutorial 1:
 Saya merasa asisten dosen sangat membantu dalam pengerjaan tutorial, asisten dosen menjelaskan dengan jelas dan tanggap untuk membantu apabila terdapat masalah pada pengerjaannya.
+</details>
+
+<details>
+<Summary><b>Tugas 3</b></Summary>
+
+</details>
