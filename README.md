@@ -38,5 +38,36 @@ Saya merasa asisten dosen sangat membantu dalam pengerjaan tutorial, asisten dos
 
 <details>
 <Summary><b>Tugas 3</b></Summary>
+Penjelasan mengenai data delivery dalam pengimplementasian sebuah platform:
+Data delivery diperlukan untuk mengirimkan data dari suatu sistem ke sistem yang lain agar aplikasi dapat bertukar informasi. Data delivery diperlukan karena biasanya frontend (user interface yang dilihat user) dan backend (server yang memproses data) terpisah. Dengan adanya data delivery, data yang diproses di backend dapat dikirimkan ke frontend agar bisa ditampilkan ke pengguna. Selain itu, apabila platform memiliki beberapa sistem terpisah seperti aplikasi mobile dan aplikasi web, maka data delivery juga dapat memastikan semua sistem memiliki data yang konsisten dan sinkron. 
 
+Penjelasan mengenai XML dan JSON:
+Menurut saya, JSON lebih baik daripada XML. JSON bersifat sederhana dan fleksibel, sedangkan XML bersifat kompleks dan kurang fleksibel. XML menggunakan struktur sintaks yang menggunakan tag pembuka dan penutup seperti HTML, sedangkan JSON menggunakan sintaks seperti dictionary di Python, yaitu pasangan key dan value. Sehingga, XML cenderung lebih panjang dan sulit dibaca, sedangkan JSON lebih mudah dibaca dan lebih ringkas. JSON juga merepresentasikan data yang sama dalam ukuran file yang lebih kecil dan transmisi data yang lebih cepat. JSON lebih populer dibandingkan XML karena JSON berasal dari sintaks JavaScript, yang menjadi bahasa utama di browser. JSON juga lebih sering digunakan untuk sistem baru, sedangkan XML lebih sering digunakan untuk sistem lama.
+Sumber:
+Amazon Web Services. (n.d). Apa Perbedaan antara JSON dan XML?. Diambil kembali dari AWS: https://aws.amazon.com/id/compare/the-difference-between-json-xml/
+
+Penjelasan mengenai method is_valid() pada form Django:
+Method is_valid() pada Django dibutuhkan untuk memvalidasi data yang diberikan oleh pengguna melalui form, sebelum data tersebut disimpan atau diproses ke database. Method ini akan mengecek apakah input yang diberikan pengguna sudah sesuai dengan tipe field yang didefinisikan di form. Jika sudah sesuai, maka data akan diproses dan disimpan ke database. Jika tidak sesuai, Django akan memberikan pesan error dan data tidak akan disimpan di database. Method ini dibutuhkan untuk mencegah data yang tidak valid masuk ke database.
+
+Penjelasan mengenai csrf_token saat membuat form di Django:
+CSRF adalah serangan yang mengelabui pengguna untuk menjalankan tindakan yang tidak diinginkan pada aplikasi web dengan mengirimkan script kepada pengguna yang akan secara langsung dieksekusi apabila diklik. Serangan ini memalsukan pengiriman request ke situs web agar terlihat seperti pengguna asli. csrf_token digunakan untuk mencegah serangan CSRF, dan csrf_token adalah kode unik yang akan diberikan untuk setiap form, lalu token ini akan dikirim bersama form dan diverifikasi saat form disubmit. Jika token tidak cocok, maka Django akan menolak request. csrf_token dibutuhkan agar kita bisa memverifikasi bahwa request benar-benar berasal dari pengguna dan form asli dari aplikasi yang akan diproses. Jika kita tidak menambahkan csrf_token pada form, maka penyerang dapat membuat form palsu yang mengirim request ke aplikasi, sehingga server tidak dapat membedakan request asli dan request palsu. Jika kita tidak menambahkan line {% csrf_token %} pada form, maka Django akan mengirimkan pesan error. Dengan csrf_token, kita bisa melindungi pengguna dan data dari serangan berbahaya.
+Sumber:
+codingstudio. (2023, 19 November). CSRF (Cross Site Request Forgery): Pengertian, Jenis dan Cara Mencegahnya. Diambil kembali dari codingstudio: https://codingstudio.id/blog/csrf-adalah/ 
+chippiko. (2023, 8 Januari). Apa itu CSRF (Cross-Site Request Forgery)?. Diambil kembali dari chippiko: https://www.chippiko.com/apa-itu-csrf
+
+Penjelasan mengenai implementasi checklist:
+Pertama, saya membuat fungsi baru di views.py pada main yang akan menampilkan semua data dalam bentuk XML atau JSON, dan menampilkan data yang sesuai dengan ID dalam bentuk XML atau JSON. Kemudian, saya membuat routing dengan menambahkan fungsi tersebut di urls.py bagian main, sehingga fungsi tersebut dapat diakses melalui browser atau Postman.
+
+Selanjutnya, saya membuat forms.py di main untuk membuat form yang menerima data. Kemudian, saya menambahkan fungsi di views.py untuk menambahkan produk di forms dan menampilkan produk yang tersedia. Selanjutnya, saya menambahkan fungsi tersebut ke urls.py dan menambahkan path URLnya ke urlpatterns. Selanjutnya, saya mengubah template.html yang ada di main, dan menambahkan tombol untuk menambahkan produk serta redirect ke halaman form serta kode untuk menampilkan produk yang ada dan melakukan redirect ke halaman detail produk.
+
+Kemudian, saya membuat halaman yang akan menampilkan  formsnya di create_product.html dan halaman untuk menampilkan detail produk di product_detail.html. Pada forms tersebut, saya juga menambahkan {% csrf_token %} untuk mencegah serangan CSRF. Setelah itu, saya juga mengubah settings.py dan menambahkan CSRF_TRUSTEG_ORIGINS. Terakhir, saya melakukan add, commit, dan push ke GitHub dan PWS.
+
+Feedback untuk asisten dosen di tutorial 2:
+Penjelasan yang diberikan sangat membantu dan jelas, serta asisten dosen membantu saya ketika terdapat permasalahan dalam pengerjaan tutorial. Asisten dosen juga memberikan feedback yang jelas jika terdapat kesalahan dalam pengerjaan.
+
+Screenshot dari hasil akses URL pada Postman:
+![Screenshot XML](xml.png)
+![Screenshot XML dengan ID](xml_id.png)
+![Screenshot JSON](json.png)
+![Screenshot JSON dengan ID](json_id.png)
 </details>
