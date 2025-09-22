@@ -149,6 +149,6 @@ Selanjutnya, saya menambahkan informasi last_login di bagian context di fungsi s
 
 Selanjutnya, saya menghubungkan model Product dengan User dengan menambahkan foreign key User ke model Product. Lalu, saya melakukan migrasi untuk menyimpan perubahan model dan mengubah fungsi create_product, serta mengubah fungsi show_main agar dapat melakukan filter terhadap produk yang dimiliki oleh user yang sedang login, atau semua produk yang ada di database. Selanjutnya, 'name' di context akan diubah agar menyesuaikan dengan username dari pengguna yang sedang login. Saya juga menambahkan tombol untuk filter di main.html, dan menambahkan nama penjual di product_detail.html
 
-Terakhir, saya melakukan add, commit, dan push di GitHub dan PWS.
+Kemudian, saya menjalankan website-nya di local, lalu membuat 2 akun dan di masing-masing akun, saya menambahkan 3 produk. Terakhir, saya melakukan add, commit, dan push di GitHub dan PWS.
 </p>
 <details>
