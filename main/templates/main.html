@@ -1,54 +1,59 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Football Shop - Home</title>
+{% endblock meta %}
+
 {% block content %}
-<h1>{{application}}</h1>
+{% include 'navbar.html' %}
 
-<h4>NPM: </h4>
-<p>{{npm}}</p> <!-- Ubah sesuai dengan npm kamu -->
-<h4>Name: </h4>
-<p>{{name}}</p> <!-- Ubah sesuai dengan nama kamu -->
-<h4>Class: </h4>
-<p>{{class}}</p> <!-- Ubah sesuai dengan kelas kamu -->
+<div class="bg-gray-50 w-full min-h-screen pt-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-<a href="{%url 'main:create_product' %}">
-    <button>+ Add Product</button>
-</a>
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight">Products</h1>
+    </div>
 
-<a href="{% url 'main:logout' %}">
-  <button>Logout</button>
-</a>
-<h5>Sesi terakhir login: {{ last_login }}</h5>
-<hr>
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+      <div class="flex items-center space-x-3 mb-4 sm:mb-0">
+        <span class="text-sm font-medium text-gray-600">Filter:</span>
+        <a href="?filter=all" class="{% if request.GET.filter != 'my' %}bg-blue-500 text-white{% else %}bg-white text-gray-700 border border-gray-300{% endif %} px-4 py-2 rounded-md text-sm font-medium transition-colors hover:bg-blue-600 hover:text-white">
+          All Products
+        </a>
+        <a href="?filter=my" class="{% if request.GET.filter == 'my' %}bg-blue-500 text-white{% else %}bg-white text-gray-700 border border-gray-300{% endif %} px-4 py-2 rounded-md text-sm font-medium transition-colors hover:bg-blue-600 hover:text-white">
+          My Products
+        </a>
+        <a href="{% url 'main:create_product' %}" class="inline-flex items-center justify-center sm:justify-start px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-600 transition-colors">
+            + Add Product
+        </a>
+      </div>
+      {% if user.is_authenticated %}
+        <div class="text-sm text-gray-500">
+          Last login: {{ last_login }}
+        </div>
+      {% endif %}
+    </div>
 
-<a href="?filter=all">
-    <button type="button">All Products</button>
-</a>
-<a href="?filter=my">
-    <button type="button">My Products</button>
-</a> 
-
-{% if not product_list %}
-<p> Belum ada data produk pada football shop.</p>
-{% else %}
-
-{% for product in product_list %}
-<div>
-    <h2><a href="{%url 'main:show_product' product.id %}">{{ product.name }}</a></h2>
-
-    <p><b>{{ product.get_category_display }}</b>{% if product.is_featured %} | 
-    <b>Featured</b>{% endif %} | Stock: {{ product.stock }} | Price: Rp{{product.price}} </p>
-
-  {% if product.thumbnail %}
-  <img src="{{ product.thumbnail }}" alt="thumbnail" width="150" height="100">
-  <br />
-  {% endif %}
-
-  <p>{{ product.description|truncatewords:25 }}...</p>
-
-  <p><a href="{% url 'main:show_product' product.id %}"><button>Detail</button></a></p>
+    {% if product_list %}
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        {% with products=product_list %}
+            {% include 'card_product.html' %}
+        {% endwith %}
+      </div>
+    {% else %}
+      <div class="bg-white rounded-lg border border-gray-200 p-12 text-center">
+        <div class="w-32 h-32 mx-auto mb-4">
+            <img src="{% static 'image/no-product.png' %}" alt="No products available" class="w-full h-full object-contain opacity-75">
+        </div>
+        <h3 class="text-xl font-medium text-gray-900 mb-2">No Products</h3>
+        <p class="text-gray-500 mb-6">There are no products available</p>
+        <a href="{% url 'main:create_product' %}" class="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
+          Create Product
+        </a>
+      </div>
+    {% endif %}
+  </div>
 </div>
-
-<hr>
-{% endfor %}
-
-{% endif %}
 {% endblock content %}
+

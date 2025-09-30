@@ -1,0 +1,36 @@
+{% load static %}
+{% for product in products %}
+<div class="bg-white rounded-lg shadow border border-gray-200">
+    
+    <a href="{% url 'main:show_product' product.pk %}">
+      <div class="h-48">
+        {% if product.thumbnail %}
+          <img class="w-full h-full object-cover rounded-t-lg" src="{{ product.thumbnail }}" alt="Thumbnail for {{ product.name }}">
+        {% else %}
+          <div class="w-full h-full bg-gray-200 flex items-center justify-center rounded-t-lg"></div>
+        {% endif %}
+      </div>
+      
+      <div class="p-4">
+        <h3 class="text-lg font-bold text-gray-800">{{ product.name }}</h3>
+        <p class="text-sm text-gray-600 mt-1">{{ product.get_category_display }}</p>
+        <p class="text-md font-semibold text-gray-900 mt-2">Rp{{ product.price }}</p>
+      </div>
+    </a>
+    
+    {% if user.is_authenticated and product.user == user %}
+    <div class="p-4 border-t border-gray-200">
+      <div class="flex justify-end space-x-3">
+        <a href="{% url 'main:edit_product' product.pk %}" class="text-sm font-medium text-blue-500 hover:underline">
+          Edit
+        </a>
+        <a href="{% url 'main:delete_product' product.pk %}" class="text-sm font-medium text-red-600 hover:underline">
+          Delete
+        </a>
+      </div>
+    </div>
+    {% endif %}
+
+</div>
+{% endfor %}
+

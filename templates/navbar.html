@@ -1,0 +1,67 @@
+<nav class="fixed top-0 left-0 w-full bg-blue-500 text-white shadow-md z-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="flex items-center justify-between h-14">
+      <h1 class="text-xl font-bold tracking-wide hover:text-yellow-300">Football Shop</h1>
+
+      <div class="hidden md:flex space-x-6">
+        <a href="/" class="hover:text-yellow-300">Home</a>
+        <a href="{% url 'main:create_product' %}" class="hover:text-yellow-300">Create Product</a>
+      </div>
+
+      <div class="hidden md:flex items-center space-x-4">
+        {% if user.is_authenticated %}
+          <div class="text-sm text-right">
+            <span class="block font-medium hover:text-yellow-300">Welcome, {{ name|default:user.username }}</span>
+            <span class="text-xs text-gray-200">{{ npm|default:"Student" }} - {{ class|default:"Class" }}</span>
+          </div>
+          <a href="{% url 'main:logout' %}" class="bg-red-500 text-white font-medium px-3 py-1 rounded hover:bg-red-300 text-sm">Logout</a>
+        {% else %}
+          <div class="space-x-2">
+            <a href="{% url 'main:login' %}" class="bg-green-500 px-3 py-1 rounded text-white hover:bg-green-400 text-sm">Login</a>
+            <a href="{% url 'main:register' %}" class="bg-indigo-500 px-3 py-1 rounded text-white hover:bg-indigo-400 text-sm">Register</a>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="md:hidden flex items-center">
+        <button class="mobile-menu-button p-2 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+          <span class="sr-only">Open menu</span>
+          <div class="w-6 h-6 flex flex-col justify-center items-center">
+            <span class="bg-current block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm"></span>
+            <span class="bg-current block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm my-0.5"></span>
+            <span class="bg-current block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm"></span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mobile-menu hidden md:hidden bg-blue-300 border-t border-blue-300">
+    <div class="px-2 pt-2 pb-3 space-y-1">
+      <a href="/" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-500">Home</a>
+      <a href="{% url 'main:create_product' %}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-500">Create Product</a>
+      
+      <div class="border-t border-blue-300 pt-3 mt-3 space-y-1">
+        {% if user.is_authenticated %}
+          <div class="px-3 py-2">
+            <div class="font-medium text-white">{{ name|default:user.username }}</div>
+            <div class="text-sm text-blue-200">{{ npm|default:"Student" }} - {{ class|default:"Class" }}</div>
+          </div>
+          <a href="{% url 'main:logout' %}" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium bg-red-500 hover:bg-red-400">Logout</a>
+        {% else %}
+          <a href="{% url 'main:login' %}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-500">Login</a>
+          <a href="{% url 'main:register' %}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-500">Register</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const btn = document.querySelector("button.mobile-menu-button");
+  const menu = document.querySelector(".mobile-menu");
+
+  btn.addEventListener("click", () => {
+    menu.classList.toggle("hidden");
+  });
+</script>
