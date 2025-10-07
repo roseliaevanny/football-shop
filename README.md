@@ -193,3 +193,24 @@ Pertama, saya menambahkan Tailwind dalam aplikasi dengan mengubah berkas base.ht
 
 Selanjutnya, saya mengubah settings.py dan menambahkan konfigurasi static files pada aplikasi. Kemudian, membuat file global.css dan menghubungkannya ke base.html. Kemudian, saya menambahkan berkas navbar.html untuk membuat navigation bar pada halaman sekaligus memberikan design untuk navigation bar. Selanjutnya, saya juga mengubah berkas login.html, register.html, news_detail.html, dan create_news.html untuk memberikan design pada tampilan halaman tersebut. Saya juga membuat berkas card_news.html dan menambahkan design untuk tampilan masing-masing produk. Saya juga menambahkan gambar apabila tidak ada produk yang tersedia ke static/image. Lalu, saya mengubah main.html agar dapat meng-include card_news.html dan menampilkan gambar di static/image, apabila tidak ada produk. Terakhir, saya melakukan add, commit, dan push ke GitHub dan PWS.
 </details>
+
+<details>
+<Summary><b>Tugas 6</b></Summary>
+
+## Perbedaan antara synchronous request dan asynchronous request
+Synchronous request akan membuat program menunggu sampai request ke server selesai dijalankan sebelum menjalankan instruksi berikutnya. Sedangkan pada asynchronous request, program tidak menunggu respons server. Instruksi selanjutnya tetap dijalankan bersamaan dengan request diproses di latar belakang. Dengan pemrograman asinkron, program dapat melanjutkan instruksi selanjutnya tanpa menunggu instruksi yang sedang berjalan untuk selesai. Dengan ini, program dapat berjalan dengan responsif meskipun sedang melakukan instruksi yang memerlukan waktu, seperti mengambil data dari server.
+
+## Penjelasan mengenai alur kerja AJAX di Django (alur request-response)
+Pertama, JavaScript di browser menjalankan fungsi AJAX menggunakan fetch() atau XMLHttpRequest untuk mengirim HTTP request ke server secara asinkron. Server kemudian menerima request dan memprosesnya melalui view yang ditentukan dalam urls.py. Kemudian view akan memproses request yang dikirimkan dan akan mengembalikan data dalam format JSON, bukan render() atau redirect() yang menghasilkan halaman HTML baru. Selanjutnya, server akan mengirimkan data yang diperlukan kembali ke browser. Browser menerima data dari server dan akan menampilkan informasi dalam format JSON yang diterima di halaman website. Data ini akan tampil secara otomatis di halaman website, tanpa perlu melakukan reload halaman.
+Sumber: https://blog.rumahweb.com/ajax-adalah/
+
+## Penjelasan mengenai keuntungan AJAX dibandingkan render biasa di Django
+Keuntungan AJAX dibandingkan render biasa di Django adalah interaksi yang lebih cepat dan responsif antara pengguna dan server. Jika menggunakan render biasa, program akan memuat ulang seluruh halaman setiap kali ada perubahan, sehingga memerlukan waktu yang lebih lama. AJAX akan mengambil dan memperbarui bagian data tertentu dari halaman tanpa memuat ulang halaman, sehingga perubahan terlihat lebih cepat oleh pengguna dan terkesan responsif.
+
+## Penjelasan mengenai memastikan keamanan saat menggunakan AJAX untuk fitur Login dan Register di Django
+Untuk memastikan keamanan saat menggunakan AJAX untuk fitur login dan register di Django, CSRF token tetap harus disertakan pada setiap permintaan POST untuk mencegah CSRF. Pada berkas html, Django akan menyediakan token ini, kemudian setiap mengisi form. Saat pengguna mengirip data menggunakan AJAX, token ini akan dikirim lewat header pada fetch(). Kemudian Django akan memverifikasi token ini sebelum memproses request POST.
+
+## Penjelasan mengenai pengaruh AJAX dalam pengalaman pengguna di website
+AJAX sangat berpengaruh dalam pengalaman pengguna di website. Dengan AJAX, website tidak perlu melakukan reload ulang atau memuat ulang seluruh halaman setiap kali terjadi perubahan, seperti pengguna mengirim formulir, menambah, mengedit, atau menghapus data. Jika seorang pengguna menghapus suatu produk, maka tampilan website akan langsung menghapus produk tersebut tanpa perlu reload halaman. Ini mengakibatkan website terlihat lebih responsif, interaktif, dan cepat.
+
+</details>

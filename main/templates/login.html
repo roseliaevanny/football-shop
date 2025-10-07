@@ -14,7 +14,7 @@
       <p class="text-center text-gray-600">Welcome to Football Shop</p>
     </div>
 
-    {% if form.non_field_errors %}
+    <!-- {% if form.non_field_errors %}
       <div class="mb-6">
         {% for error in form.non_field_errors %}
           <div class="px-4 py-3 rounded-md text-sm border bg-red-50 border-red-200 text-red-700">
@@ -36,9 +36,11 @@
           {% endif %}
         {% endfor %}
       </div>
-    {% endif %}
+    {% endif %} -->
 
-    <form method="POST" action="" class="space-y-6">
+    <p id="loginMessage" class="text-center text-sm mt-4 text-gray-600"> </p>
+
+    <form id="loginForm" method="POST" action="" class="space-y-6">
       {% csrf_token %}
       
       <div>
@@ -66,11 +68,20 @@
       <button 
         type="submit" 
         class="w-full bg-blue-400 text-white font-medium py-3 px-4 rounded-md hover:bg-blue-500 transition-colors">
-        Sign In
+        
+        <!-- Loading State -->
+        <span id="loading" class="hidden">
+          <svg class="animate-spin h-6 w-6 text-white-600 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+          </svg>
+        </span>
+
+        <span id="loginText">Sign In</span>
       </button>
     </form>
-
-    {% if messages %}
+  
+    <!-- {% if messages %}
       <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg">
         {% for message in messages %}
           <div 
@@ -88,7 +99,7 @@
           </div>
         {% endfor %}
       </div>
-    {% endif %}
+    {% endif %} -->
 
     <div class="text-sm text-center">
       <p class="text-gray-600">
@@ -100,6 +111,59 @@
     </div>
   </div>
 </div>
+
+<script>
+
+const loadingSpinner = document.getElementById("loading");
+const errorMessage = document.getElementById("error");
+const loginText = document.getElementById("loginText");
+
+// Show/hide page sections
+function displayPageSection({ showLoading = false}) {
+  loadingSpinner.classList.toggle('hidden', !showLoading);
+}
+
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  displayPageSection({ showLoading: true });
+  loginText.textContent = '';
+
+  const formData = new FormData(e.target);
+  const message = document.getElementById("loginMessage");
+
+  try {
+    const response = await fetch("{% url 'main:login_user_ajax' %}", {
+      method: "POST",
+      body: formData,
+      headers: {
+          "X-CSRFToken": "{{ csrf_token }}",
+      }
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      showToast(data.message);
+      // message.textContent = data.message;
+      // message.className = "px-4 py-3 rounded-md text-sm border bg-blue-50 border-blue-200 text-blue-700";
+      // Redirect ke main page
+      setTimeout(() => {
+        window.location.href = "{% url 'main:show_main' %}";
+      }, 800);
+    } else {
+      message.textContent = data.errors?.__all__?.[0] || "Invalid credentials!";
+      showToast(data.errors?.__all__?.[0] || "Invalid credentials!");
+      message.className = "px-4 py-3 rounded-md text-sm border bg-red-50 border-red-200 text-red-700";
+    }
+  } catch (error) {
+    showToast("An error occurred while logging in.");
+    message.textContent = "An error occured while logging in.";
+    message.className = "px-4 py-3 rounded-md text-sm border bg-gray-50 border-gray-200 text-gray-700";
+  }
+  // displayPageSection({ showLoading: false });
+  loginText.textContent = 'Sign In';
+});
+</script>
 
 {% endblock content %}
 
