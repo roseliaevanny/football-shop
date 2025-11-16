@@ -219,7 +219,7 @@
     const response = await fetch(`/json/${productId}/`); 
     const data = await response.json();
 
-    document.getElementById('productId').value = productId; // <-- PENTING
+    document.getElementById('productId').value = productId;
     document.getElementById('name').value = data.name;
     document.getElementById('price').value = data.price;
     document.getElementById('stock').value = data.stock;

@@ -12,6 +12,8 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.utils.html import strip_tags
+import requests
+import json
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -246,3 +248,82 @@ def add_product_entry_ajax(request):
     new_product.save()
 
     return HttpResponse(b"CREATED", status=201)
+
+def proxy_image(request):
+    image_url = request.GET.get('url')
+    if not image_url:
+        return HttpResponse('No URL provided', status=400)
+    
+    try:
+        # Fetch image from external source
+        response = requests.get(image_url, timeout=10)
+        response.raise_for_status()
+        
+        # Return the image with proper content type
+        return HttpResponse(
+            response.content,
+            content_type=response.headers.get('Content-Type', 'image/jpeg')
+        )
+    except requests.RequestException as e:
+        return HttpResponse(f'Error fetching image: {str(e)}', status=500)
+
+@csrf_exempt
+def create_products_flutter(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        name = strip_tags(data.get("name", ""))  # Strip HTML tags
+        description = strip_tags(data.get("description", ""))  # Strip HTML tags
+        category = data.get("category", "jersey")
+        thumbnail = data.get("thumbnail", "")
+        is_featured = data.get("is_featured", False)
+        price_str = data.get("price")
+        stock_str = data.get("stock")
+        user = request.user
+
+        try:
+            price = int(price_str)
+            stock = int(stock_str)
+        except ValueError:
+            return JsonResponse({"status": "error", "message": "Harga dan stok harus berupa angka"}, status=400)
+        
+        if stock < 0:
+            return JsonResponse({"status": "error", "message": "Stok tidak boleh negatif"}, status=400)
+        
+        new_products = Product(
+            name=name, 
+            description=description,
+            price=price,
+            stock=stock,
+            category=category,
+            thumbnail=thumbnail,
+            is_featured=is_featured,
+            user=user
+        )
+        new_products.save()
+        
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+ 
+@login_required(login_url='/login/') 
+def get_products_by_user(request):
+    if request.method == 'GET':
+        products = Product.objects.filter(user=request.user)
+        
+        products_list = []
+        for product in products:
+            products_list.append({
+                "id": product.id,
+                "name": product.name,
+                "price": product.price,
+                "description": product.description,
+                "thumbnail": product.thumbnail,
+                "category": product.category,
+                "is_featured": product.is_featured,
+                "stock": product.stock,
+                "user_id": product.user.id, 
+            })
+            
+        return JsonResponse(products_list, safe=False)
+    
+    return JsonResponse({"status": "error", "message": "error"}, status=405)
