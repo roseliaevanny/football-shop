@@ -211,6 +211,6 @@ Keuntungan AJAX dibandingkan render biasa di Django adalah interaksi yang lebih 
 Untuk memastikan keamanan saat menggunakan AJAX untuk fitur login dan register di Django, CSRF token tetap harus disertakan pada setiap permintaan POST untuk mencegah CSRF. Pada berkas html, Django akan menyediakan token ini, kemudian setiap mengisi form. Saat pengguna mengirip data menggunakan AJAX, token ini akan dikirim lewat header pada fetch(). Kemudian Django akan memverifikasi token ini sebelum memproses request POST.
 
 ## Penjelasan mengenai pengaruh AJAX dalam pengalaman pengguna di website
-AJAX sangat berpengaruh dalam pengalaman pengguna di website. Dengan AJAX, website tidak perlu melakukan reload ulang atau memuat ulang seluruh halaman setiap kali terjadi perubahan, seperti pengguna mengirim formulir, menambah, mengedit, atau menghapus data. Jika seorang pengguna menghapus suatu produk, maka tampilan website akan langsung menghapus produk tersebut tanpa perlu reload halaman. Ini mengakibatkan website terlihat lebih responsif, interaktif, dan cepat.
+AJAX sangat berpengaruh dalam pengalaman pengguna di website. Dengan AJAX, website tidak perlu melakukan reload ulang atau memuat ulang seluruh halaman setiap kali terjadi perubahan, seperti pengguna mengirim formulir, menambah, mengedit, atau menghapus data. Jika seorang pengguna menghapus suatu produk, maka tampilan website akan langsung menghapus produk tersebut tanpa perlu reload halaman. Ini mengakibatkan website terlihat lebih responsif, interaktif, dan cepat
 
 </details>
